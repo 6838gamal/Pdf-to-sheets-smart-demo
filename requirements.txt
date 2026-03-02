@@ -7,3 +7,4 @@ jinja2
 pdf2image
 pytesseract
 Pillow
+python-multipart
