@@ -8,3 +8,7 @@ pdf2image
 pytesseract
 Pillow
 python-multipart
+
+
+google-genai
+

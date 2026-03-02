@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Preview</h2>
+
+<table>
+
+    {% for row in data %}
+
+    <tr>
+
+        {% for col in row %}
+
+        <td>{{ col }}</td>
+
+        {% endfor %}
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<br>
+
+<a href="/download/csv">Download CSV</a>
+
+<br>
+
+<a href="/download/xlsx">Download XLSX</a>
+
+{% endblock %}

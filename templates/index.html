@@ -1,31 +1,28 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>PDF OCR to CSV/XLSX</title>
-</head>
-<body>
-    <h1>رفع ملف PDF وتحويله إلى CSV و XLSX</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="pdf_file" accept=".pdf" required>
-        <input type="text" name="output_name" placeholder="اسم الملف النهائي" value="output_data">
-        <button type="submit">رفع ومعالجة</button>
-    </form>
+{% extends "layout.html" %}
 
-    {% if saved_files %}
-        <h2>تم حفظ الملفات:</h2>
-        <ul>
-        {% for csv_file, xlsx_file in saved_files %}
-            <li>
-                <a href="/outputs/{{ csv_file }}" target="_blank">CSV: {{ csv_file }}</a> |
-                <a href="/outputs/{{ xlsx_file }}" target="_blank">XLSX: {{ xlsx_file }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
-</body>
-</html>
+{% block content %}
+
+<h2>Upload PDF</h2>
+
+<form action="/process" method="post" enctype="multipart/form-data">
+
+    <input type="file" name="file" required>
+
+    <br><br>
+
+    <label>Mode:</label>
+
+    <select name="mode">
+
+        <option value="normal">Normal</option>
+        <option value="ai">AI</option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">Process</button>
+
+</form>
+
+{% endblock %}
