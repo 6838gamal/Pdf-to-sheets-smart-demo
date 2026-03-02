@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from services.pdf_service import extract_text_from_pdf
+from services.pdf_service import extract_text
 from services.ocr_service import ocr_pdf
 from services.ai_service import ai_to_json
 from services.table_service import json_to_rows, normalize_table
@@ -71,7 +71,7 @@ async def process_pdf(
 
     # -------- extract --------
 
-    text = extract_text_from_pdf(path)
+    text = extract_text(path)
 
     if not text.strip():
         text = ocr_pdf(path)
