@@ -1,15 +1,17 @@
 import pandas as pd
-import os
 
-
-def save_table(data, output_dir, name):
-
+def save_csv(data, path):
+    """
+    يحفظ البيانات في CSV
+    """
     df = pd.DataFrame(data)
+    df.to_csv(path, index=False)
+    return path
 
-    csv_path = os.path.join(output_dir, name + ".csv")
-    xlsx_path = os.path.join(output_dir, name + ".xlsx")
-
-    df.to_csv(csv_path, index=False)
-    df.to_excel(xlsx_path, index=False)
-
-    return csv_path, xlsx_path
+def save_xlsx(data, path):
+    """
+    يحفظ البيانات في XLSX
+    """
+    df = pd.DataFrame(data)
+    df.to_excel(path, index=False)
+    return path
