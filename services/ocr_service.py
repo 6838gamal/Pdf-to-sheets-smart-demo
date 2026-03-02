@@ -2,7 +2,7 @@ from pdf2image import convert_from_path
 import pytesseract
 
 
-def extract_text_ocr(pdf_path):
+def ocr_pdf(pdf_path):
 
     text = ""
 
