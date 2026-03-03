@@ -1,11 +1,11 @@
 FROM python:3.11-slim
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# تثبيت الأدوات اللازمة للـ OCR وPDF
+# تثبيت أدوات OCR
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     poppler-utils \
@@ -16,11 +16,14 @@ RUN apt-get update && apt-get install -y \
     libxrender-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# نسخ كل محتويات app داخل الحاوية
-COPY ../../app /app
+# ✅ أولاً: نسخ requirements.txt من جذر المشروع
+COPY requirements.txt .
 
-# تثبيت المتطلبات
+# تثبيت المكتبات
 RUN pip install --no-cache-dir -r requirements.txt
+
+# ✅ ثم نسخ مجلد app بالكامل
+COPY app/ .
 
 EXPOSE 8000
 
