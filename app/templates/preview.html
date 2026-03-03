@@ -1,33 +1,47 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="card fade-in">
+    <div class="preview-header">
+        <div class="title-group">
+            <h2><i class="fas fa-check-circle"></i> تمت المعالجة بنجاح</h2>
+            <p>تم استخراج {{ data|length - 1 if data else 0 }} صف من البيانات.</p>
+        </div>
+        <div class="action-buttons">
+            <a href="/download/xlsx" class="btn-download excel">
+                <i class="fas fa-file-excel"></i> Excel
+            </a>
+            <a href="/download/csv" class="btn-download csv">
+                <i class="fas fa-file-csv"></i> CSV
+            </a>
+        </div>
+    </div>
 
-<h2>Preview</h2>
+    <div class="table-wrapper">
+        <table class="styled-table">
+            <thead>
+                {% if data %}
+                <tr>
+                    {% for col in data[0] %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+            </thead>
+            <tbody>
+                {% for row in data[1:] %}
+                <tr>
+                    {% for col in row %}
+                    <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-<table>
-
-    {% for row in data %}
-
-    <tr>
-
-        {% for col in row %}
-
-        <td>{{ col }}</td>
-
-        {% endfor %}
-
-    </tr>
-
-    {% endfor %}
-
-</table>
-
-<br>
-
-<a href="/download/csv">Download CSV</a>
-
-<br>
-
-<a href="/download/xlsx">Download XLSX</a>
-
+    <div class="back-link">
+        <a href="/"><i class="fas fa-undo"></i> معالجة ملف جديد</a>
+    </div>
+</div>
 {% endblock %}

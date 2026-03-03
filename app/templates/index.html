@@ -1,28 +1,76 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="card fade-in">
+    <div class="card-header">
+        <h1><i class="fas fa-file-upload"></i> معالجة مستندات PDF</h1>
+        <p>استخرج البيانات الجداولية بدقة عالية باستخدام تقنيات المعالجة المتقدمة.</p>
+    </div>
 
-<h2>Upload PDF</h2>
+    <form action="/process" method="post" enctype="multipart/form-data" class="upload-form" id="main-form">
+        <div class="upload-area" id="drop-zone">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <h3>اسحب ملف PDF هنا</h3>
+            <p>أو اضغط لتصفح الملفات من جهازك</p>
+            <input type="file" name="file" id="file-input" accept=".pdf" required>
+            <div id="file-name-display" class="file-name"></div>
+        </div>
 
-<form action="/process" method="post" enctype="multipart/form-data">
+        <div class="options-grid">
+            <div class="option-card">
+                <label for="mode"><i class="fas fa-wand-magic-sparkles"></i> اختر نمط الاستخراج:</label>
+                <select name="mode" id="mode-select" class="custom-select">
+                    <option value="normal">استخراج جداول تقليدي (سريع)</option>
+                    <option value="ai">تحليل ذكي باستخدام AI (أكثر دقة)</option>
+                </select>
+            </div>
+        </div>
 
-    <input type="file" name="file" required>
+        <button type="submit" class="btn-primary">
+            <span>بدء المعالجة الذكية</span>
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </form>
+</div>
 
-    <br><br>
+<div id="loading-overlay" class="overlay" style="display: none;">
+    <div class="loader-card">
+        <div class="spinner"></div>
+        <h3 id="loader-title">جاري تحليل البيانات...</h3>
+        <p>نحن نقوم الآن بفك تشفير الجداول وتنظيمها.</p>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
+        <p class="status-tip">يرجى عدم إغلاق المتصفح أو تحديث الصفحة</p>
+    </div>
+</div>
 
-    <label>Mode:</label>
+<script>
+    const fileInput = document.getElementById('file-input');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const form = document.getElementById('main-form');
+    const overlay = document.getElementById('loading-overlay');
+    const progressBar = document.getElementById('progress-bar');
 
-    <select name="mode">
+    // إظهار اسم الملف المختار
+    fileInput.onchange = e => {
+        const name = e.target.files[0]?.name;
+        if (name) fileNameDisplay.innerText = "الملف المختار: " + name;
+    };
 
-        <option value="normal">Normal</option>
-        <option value="ai">AI</option>
-
-    </select>
-
-    <br><br>
-
-    <button type="submit">Process</button>
-
-</form>
-
+    // تشغيل الأنيميشن عند الإرسال
+    form.onsubmit = () => {
+        overlay.style.display = 'flex';
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 98) clearInterval(interval);
+            else {
+                width += Math.random() * 5;
+                if (width > 98) width = 98;
+                progressBar.style.width = width + '%';
+                progressBar.innerHTML = Math.round(width) + '%';
+            }
+        }, 300);
+    };
+</script>
 {% endblock %}
