@@ -14,7 +14,7 @@ services:
       - ./app/templates:/app/templates
       - ./app/static:/app/static
       - ./app/main.py:/app/main.py
-      - ./requirements.txt:/app/requirements.txt
+      - ./requirements.txt:requirements.txt
     restart: always
 
   nginx:
