@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 COPY ../../app /app
 
 # تثبيت المتطلبات
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8000
 
