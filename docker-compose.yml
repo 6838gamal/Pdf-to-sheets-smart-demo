@@ -5,8 +5,7 @@ services:
     build:
       context: ./docker/app
     container_name: pdf-smart-app
-    environment:
-      - GEMINI_API_KEY=AIzaSyAp0ksTKBhoYh787arH-J9ouazMdZODU0w
+    ###
     volumes:
       - ./app/uploads:/app/uploads
       - ./app/outputs:/app/outputs
